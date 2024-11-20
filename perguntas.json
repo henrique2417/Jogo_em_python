@@ -1,0 +1,32 @@
+[
+    {
+        "pergunta": "Qual é a capital do Brasil?",
+        "alternativas": ["A) São Paulo", "B) Rio de Janeiro", "C) Brasília", "D) Belo Horizonte", "E) Porto Alegre"],
+        "resposta": 3
+    },
+    {
+        "pergunta": "Qual é o maior planeta do sistema solar?",
+        "alternativas": ["A) Terra", "B) Saturno", "C) Júpiter", "D) Urano", "E) Netuno"],
+        "resposta": 3
+    },
+    {
+        "pergunta": "Quanto é 7 * 6?",
+        "alternativas": ["A) 42", "B) 13", "C) 76", "D) 48", "E) 52"],
+        "resposta": 5
+    },
+    {
+        "pergunta": "Qual é o valor aproximado de π (pi)?",
+        "alternativas": ["A) 4.20", "B) 6", "C) 2.11", "D) 3.14", "E) 7.08"],
+        "resposta": 2
+    },
+    {
+        "pergunta": "Quantos continentes existem no planeta Terra?",
+        "alternativas": ["A) 4", "B) 6", "C) 7", "D) 9", "E) 10"],
+        "resposta": 4
+    },
+    {
+        "pergunta": "Qual é o valor de 50 dividido por 5?",
+        "alternativas": ["A) 5", "B) 9", "C) 10", "D) 11", "E) 13"],
+        "resposta": 3
+    }
+]
