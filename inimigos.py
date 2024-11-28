@@ -10,6 +10,9 @@ class InimigoBase:
     def atualizar(self):
         self.rect.x -= self.velocidade
 
+    def desenhar(self, tela):
+        raise NotImplementedError("Este método srá implementado de forma diferente pelas subclasses.")
+
 class Inimigo(InimigoBase):
     def __init__(self, x, y, velocidade):
         super().__init__(x, y, velocidade)
@@ -26,6 +29,16 @@ class Inimigo(InimigoBase):
 
     def desenhar(self, tela):
         tela.blit(self.frames[self.frame_atual], (self.rect.x, self.rect.y))
+    
+    @staticmethod
+    def criar_inimigo():
+        y_spawn = random.choice([ALTURA_TELA - 50, ALTURA_TELA - 150, ALTURA_TELA - 250, ALTURA_TELA - 350, ALTURA_TELA - 450])
+        velocidade_inimigo = random.randint(VELOCIDADE_MIN_INIMIGO, VELOCIDADE_MAX_INIMIGO)
+
+        if random.choice([True, False]):
+            return Inimigo(LARGURA_TELA, y_spawn, velocidade_inimigo)
+        else:
+            return InimigoInvencivel(LARGURA_TELA, y_spawn, velocidade_inimigo)
         
         
 

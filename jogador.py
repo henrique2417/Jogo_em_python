@@ -25,13 +25,29 @@ class Jogador:
             self.rect.y += 100
             self.plataforma -= 1
 
-    def mover(self, direcao):
-        if direcao == "esquerda":
-            if self.rect.x - 5 >= 0:  
-                self.rect.x -= 5
-        elif direcao == "direita":
-            if self.rect.x + 5 <= 800:
-                self.rect.x += 5
+    def mover(self, teclas):
+        if self.vivo:
+            # Subir plataforma
+            if teclas[pygame.K_w] and not self.tecla_w_pressionada:
+                self.subir_plataforma()
+                self.tecla_w_pressionada = True
+            elif not teclas[pygame.K_w]:
+                self.tecla_w_pressionada = False
+
+            # Descer plataforma
+            if teclas[pygame.K_s] and not self.tecla_s_pressionada:
+                self.descer_plataforma()
+                self.tecla_s_pressionada = True
+            elif not teclas[pygame.K_s]:
+                self.tecla_s_pressionada = False
+
+            # Movimentação para a esquerda e direita
+            if teclas[pygame.K_a]:
+                if self.rect.x - 5 >= 0:  
+                    self.rect.x -= 5
+            if teclas[pygame.K_d]:
+                if self.rect.x + 5 <= 800:
+                    self.rect.x += 5
 
     def atualizar_animacao(self):
         self.frame_timer += 1

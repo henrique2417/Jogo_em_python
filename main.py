@@ -62,24 +62,8 @@ def main():
 
         teclas = pygame.key.get_pressed()
         if jogador.vivo:
-            if teclas[pygame.K_w] and not tecla_w_pressionada:
-                jogador.subir_plataforma()
-                tecla_w_pressionada = True
-            elif not teclas[pygame.K_w]:
-                tecla_w_pressionada = False
-
-            if teclas[pygame.K_s] and not tecla_s_pressionada:
-                jogador.descer_plataforma()
-                tecla_s_pressionada = True
-            elif not teclas[pygame.K_s]:
-                tecla_s_pressionada = False
-
-            # Movimentação para a esquerda e direita
-            if teclas[pygame.K_a]:
-                jogador.mover("esquerda")
-            if teclas[pygame.K_d]:
-                jogador.mover("direita")
-        else:
+            jogador.mover(teclas)
+        else:    
             if teclas[pygame.K_r]:
                 main()
             if teclas[pygame.K_ESCAPE]:
@@ -131,23 +115,7 @@ def main():
             if timer_spawn >= taxa_spawn:
                 timer_spawn = 0
                 taxa_spawn = random.randint(TAXA_MIN_SPAWN_INIMIGO, TAXA_MAX_SPAWN_INIMIGO)
-                velocidade_inimigo = random.randint(VELOCIDADE_MIN_INIMIGO, VELOCIDADE_MAX_INIMIGO)
-                escolha = random.choice([1, 2, 3, 4, 5])
-                if escolha == 1:
-                    y_spawn = ALTURA_TELA - 50
-                elif escolha == 2:
-                    y_spawn = ALTURA_TELA - 150
-                elif escolha == 3:
-                    y_spawn = ALTURA_TELA - 250
-                elif escolha == 4:
-                    y_spawn = ALTURA_TELA - 350
-                elif escolha == 5:
-                    y_spawn = ALTURA_TELA - 450  
-                
-                if random.choice([True, False]):
-                    inimigos.append(Inimigo(LARGURA_TELA, y_spawn, velocidade_inimigo))
-                else:
-                    inimigos.append(InimigoInvencivel(LARGURA_TELA, y_spawn, velocidade_inimigo))
+                inimigos.append(Inimigo.criar_inimigo())
 
         # Exibe a pergunta e as alternativas e o tempo entre elas
         fonte_timer = pygame.font.Font(None, 48)
@@ -155,7 +123,8 @@ def main():
         texto_timer = fonte_timer.render("Tempo: " + str(segundos), True, PRETO)
         tela.blit(texto_timer, (600, 20))
         if timer_espera_pergunta > 0:
-            timer_espera_pergunta -= 1
+            if jogador.vivo:
+                timer_espera_pergunta -= 1
         elif pergunta_atual is None:
             if len(perguntas) == 0:  # Verifica se não há mais perguntas
                 texto_acabou = fonte.render("Todas as perguntas foram feitas", True, PRETO)
@@ -184,7 +153,11 @@ def main():
                             pergunta_atual = None
                             resposta_atual = None
                             timer_espera_pergunta = 20 * FPS
-                        else:    
+                        else:
+                            perguntas.remove(pergunta_atual)
+                            pergunta_atual = None
+                            resposta_atual = None
+                            timer_espera_pergunta = 20 * FPS    
                             jogador.morrer()
             
         pygame.display.flip()
